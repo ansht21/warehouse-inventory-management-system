@@ -5,6 +5,7 @@ import com.warehouse.entity.*;
 import com.warehouse.exception.BadRequestException;
 import com.warehouse.exception.ResourceNotFoundException;
 import com.warehouse.repository.*;
+import com.warehouse.security.CustomUserDetailsService;
 import com.warehouse.security.JwtTokenProvider;
 import com.warehouse.service.AuthService;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,15 +24,18 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider tokenProvider;
     private final AuthenticationManager authenticationManager;
+    private final CustomUserDetailsService userDetailsService;
 
     public AuthServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
                            PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider,
-                           AuthenticationManager authenticationManager) {
+                           AuthenticationManager authenticationManager,
+                           CustomUserDetailsService userDetailsService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.tokenProvider = tokenProvider;
         this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -56,7 +60,8 @@ public class AuthServiceImpl implements AuthService {
 
         userRepository.save(user);
 
-        String token = tokenProvider.generateToken(user);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+        String token = tokenProvider.generateToken(userDetails);
         return new AuthResponse(token, user.getId(), user.getUsername(), user.getEmail(),
                 user.getFullName(), user.getRole().getName());
     }

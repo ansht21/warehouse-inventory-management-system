@@ -1,6 +1,6 @@
 package com.warehouse.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public class SaleDTO {
@@ -21,10 +21,10 @@ public class SaleDTO {
     public void setItems(java.util.List<SaleItemDTO> items) { this.items = items; }
 
     public static class SaleItemDTO {
-        @NotBlank(message = "Product ID is required")
+        @NotNull(message = "Product ID is required")
         private Long productId;
 
-        @NotBlank(message = "Quantity is required")
+        @NotNull(message = "Quantity is required")
         private Integer quantity;
 
         private BigDecimal unitPrice;
