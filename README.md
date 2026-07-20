@@ -163,6 +163,33 @@ Make sure you have the following installed:
 | Node.js | 18+ | `node -v` |
 | MySQL | 8.0+ | `mysql --version` |
 
+### Quick Start (Copy & Paste)
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/ansht120/warehouse-inventory-management-system.git
+cd warehouse-inventory-management-system
+
+# 2. Import database (replace <password> with your MySQL root password)
+mysql -u root -p<password> < database/schema.sql
+
+# 3. Update MySQL password in application.properties
+# Edit: backend/src/main/resources/application.properties
+# Set: spring.datasource.password=<your_mysql_password>
+
+# 4. Start backend (in one terminal)
+cd backend && mvn spring-boot:run
+
+# 5. Start frontend (in another terminal)
+cd frontend && npm install && npm run dev
+```
+
+Then open **http://localhost:5173** and login with:
+- **Admin:** `admin` / `admin123`
+- **Staff:** `staff` / `staff123`
+
+### Detailed Setup
+
 ### Step 1 — Clone the Repository
 
 ```bash
