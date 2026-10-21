@@ -167,7 +167,7 @@ Make sure you have the following installed:
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/ansht120/warehouse-inventory-management-system.git
+git clone https://github.com/ansht21/warehouse-inventory-management-system.git
 cd warehouse-inventory-management-system
 
 # 2. Import database (replace <password> with your MySQL root password)
@@ -193,7 +193,7 @@ Then open **http://localhost:5173** and login with:
 ### Step 1 — Clone the Repository
 
 ```bash
-git clone https://github.com/ansht120/warehouse-inventory-management-system.git
+git clone https://github.com/ansht21/warehouse-inventory-management-system.git
 cd warehouse-inventory-management-system
 ```
 
@@ -429,7 +429,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 <div align="center">
 
-**Built by [Ansh Tandel](https://github.com/ansht120) — MCA Final Year Major Project**
+**Built by [Ansh Thakur](https://github.com/ansht21) — MCA Final Year Major Project**
 
 If you found this project helpful, consider giving it a ⭐ on GitHub!
 
