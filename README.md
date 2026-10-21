@@ -173,9 +173,9 @@ cd warehouse-inventory-management-system
 # 2. Import database (replace <password> with your MySQL root password)
 mysql -u root -p<password> < database/schema.sql
 
-# 3. Update MySQL password in application.properties
-# Edit: backend/src/main/resources/application.properties
-# Set: spring.datasource.password=<your_mysql_password>
+# 3. Set the MySQL password via an environment variable (never commit it)
+# PowerShell:  $env:DB_PASSWORD = "<your_mysql_password>"
+# Bash/macOS:  export DB_PASSWORD="<your_mysql_password>"
 
 # 4. Start backend (in one terminal)
 cd backend && mvn spring-boot:run
@@ -213,13 +213,30 @@ mysql -u root -p warehouse_db < database/schema.sql
 
 ### Step 3 — Configure Backend
 
-Open `backend/src/main/resources/application.properties` and update your MySQL credentials:
+Provide your MySQL credentials through environment variables — the committed
+config only holds a placeholder, so no real password ever enters the repo:
+
+```bash
+# PowerShell
+$env:DB_USERNAME = "root"
+$env:DB_PASSWORD = "<your_mysql_password>"
+
+# Bash / macOS
+export DB_USERNAME="root"
+export DB_PASSWORD="<your_mysql_password>"
+```
+
+The committed `application.properties` reads them with safe defaults:
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/warehouse_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-spring.datasource.username=root
-spring.datasource.password=your_mysql_password
+spring.datasource.username=${DB_USERNAME:root}
+spring.datasource.password=${DB_PASSWORD:your_password}
 ```
+
+> **Alternative:** create `backend/src/main/resources/application-local.properties`
+> with your real credentials. That file is git-ignored, so it stays out of
+> version control. Activate it with `--spring.profiles.active=local`.
 
 ### Step 4 — Start Backend Server
 
